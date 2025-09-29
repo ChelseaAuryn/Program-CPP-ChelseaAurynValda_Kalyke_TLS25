@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Membalik kata
+string balikKata(string teks) {
+    string hasil = "";
+    int panjang = teks.length();
+    for (int i = panjang - 1; i >= 0; i--) {
+        hasil = hasil + teks[i];
+    }
+    return hasil;
+}
+
+// Menghapus huruf vokal
+string hapusVokal(string teks) {
+    string hasil = "";
+    for (int i = 0; i < teks.length(); i++) {
+        char huruf = teks[i];
+        if (huruf != 'a' && huruf != 'A' &&
+            huruf != 'i' && huruf != 'I' &&
+            huruf != 'u' && huruf != 'U' &&
+            huruf != 'e' && huruf != 'E' &&
+            huruf != 'o' && huruf != 'O') {
+            hasil = hasil + huruf;
+        }
+    }
+    return hasil;
+}
+
+int main() {
+    string kata;
+    cout << "Masukkan satu kata: ";
+    cin >> kata;
+
+    // Ambil kode ASCII dari huruf pertama
+    int kodeAscii = (int)kata[0];
+
+    // Balik kata
+    string kataTerbalik = balikKata(kata);
+
+    // Hapus vokal dari kata terbalik
+    string kataTanpaVokal = hapusVokal(kataTerbalik);
+
+    // Sisipkan kode ASCII
+    int posisiTengah = kataTanpaVokal.length() / 2;
+    string bagianKiri = kataTanpaVokal.substr(0, posisiTengah);
+    string bagianKanan = kataTanpaVokal.substr(posisiTengah);
+    string kataSandi = bagianKiri + to_string(kodeAscii) + bagianKanan;
+
+    // Tampilkan hasil akhir
+    cout << "Kata sandi: " << kataSandi << endl;
+
+    return 0;
+}
